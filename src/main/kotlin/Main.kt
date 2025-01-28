@@ -4,7 +4,7 @@ import org.example.graphs.Edge
 import org.example.graphs.Graph
 import org.example.graphs.Node
 
-fun main() {
+fun main1() {
     val node1: Node = Node(1)
     val node2: Node = Node(2)
     val node3: Node = Node(3)
@@ -34,7 +34,7 @@ fun main() {
     println(graph)
 }
 
-fun main1() {
+fun main() {
     val node1: Node = Node(1)
     val node2: Node = Node(2)
     val node3: Node = Node(3)

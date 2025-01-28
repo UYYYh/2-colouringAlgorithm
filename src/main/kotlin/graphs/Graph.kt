@@ -38,16 +38,17 @@ class Graph(
 
         while (nodeStack.isNotEmpty()) {
             val currentNode = nodeStack.pop()
+            println("painting node: $currentNode")
             visitedNodes.add(currentNode)
             colourPainter.switchToOther(currentNode.colour)
 
             // Get all unvisited nodes that are adjacent to the current node
             val adjacentNodes: List<Node> =
                 adjacencyList[currentNode]!!
-                    .filter { !visitedNodes.contains(it) }
+                    .filter { !visitedNodes.contains(it) && !nodeStack.contains(it) }
                     .sortedByDescending { it.alias }
 
-            // Paint all the adjacent nodes with a different colour to the current
+            // Paint all the adjacent nodes with a different colour to the current node
             for (node in adjacentNodes) {
                 colourPainter.paint(node)
                 nodeStack.push(node)
