@@ -19,13 +19,16 @@ class Graph(
         colour1: String = "Red",
         colour2: String = "Blue",
     ) {
+        // Find an uncoloured node as the starting node
         val startingNode: Node? =
             adjacencyList
                 .toList()
                 .map { it.first }
                 .find { it.colour == "None" }
+        // If all nodes are already coloured, terminate the algorithm
         if (startingNode == null) return
 
+        // Typical DFS using a stack:
         val nodeStack = Stack<Node>()
         val visitedNodes = mutableSetOf<Node>()
         val colourPainter = Painter(colour1, colour2)
@@ -38,16 +41,19 @@ class Graph(
             visitedNodes.add(currentNode)
             colourPainter.switchToOther(currentNode.colour)
 
+            // Get all unvisited nodes that are adjacent to the current node
             val adjacentNodes: List<Node> =
                 adjacencyList[currentNode]!!
                     .filter { !visitedNodes.contains(it) }
                     .sortedByDescending { it.alias }
 
+            // Paint all the adjacent nodes with a different colour to the current
             for (node in adjacentNodes) {
                 colourPainter.paint(node)
                 nodeStack.push(node)
             }
         }
+        // Call the function again, in case the graph is not connected and not all nodes are coloured
         twoColour(colour1, colour2)
     }
 }
